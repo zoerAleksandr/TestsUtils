@@ -13,7 +13,9 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
+import com.geekbrains.tests.BuildConfig
 import com.geekbrains.tests.R
+import com.geekbrains.tests.view.search.MainActivity
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -79,7 +81,12 @@ class BehaviorTest {
             )
         //Убеждаемся, что сервер вернул корректный результат. Обратите внимание, что количество
         //результатов может варьироваться во времени, потому что количество репозиториев постоянно меняется.
-        Assert.assertEquals(changedText.text.toString(), "Number of results: 668")
+
+        if (BuildConfig.TYPE == MainActivity.FAKE) {
+            Assert.assertEquals(changedText.text.toString(), "Number of results: 42")
+        } else {
+            Assert.assertEquals(changedText.text.toString(), "Number of results: 712")
+        }
     }
 
     //Убеждаемся, что DetailsScreen открывается
